@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://uspblockchain.club',
+  site: 'https://new.polichain.xyz',
   integrations: [
     tailwind(),
     mdx(),
