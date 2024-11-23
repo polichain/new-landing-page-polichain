@@ -1,0 +1,124 @@
+---
+import { languages } from '../i18n/ui';
+
+const { currentLang } = Astro.props;
+const { pathname } = Astro.url;
+---
+
+<div class="relative inline-block text-left">
+  <select
+    id="language-select"
+    class="appearance-none bg-primary/50 border border-accent/10 hover:border-accent/30 text-text rounded-lg pl-4 pr-10 py-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all duration-300"
+    data-current-lang={currentLang}
+  >
+    {Object.entries(languages).map(([lang, label]) => (
+      <option 
+        value={lang} 
+        selected={currentLang === lang}
+        class="text-text"
+      >
+        {label}
+      </option>
+    ))}
+  </select>
+  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-text">
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+</div>
+
+<style>
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  /* Base styles for options */
+  select option {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    padding: 0.5rem 1rem;
+  }
+
+  /* Selected option styles */
+  select option:checked {
+    background-color: var(--color-accent-muted);
+    color: var(--color-text-inverted);
+  }
+
+  /* Hover styles for options */
+  select option:hover {
+    background-color: var(--color-accent-muted);
+    color: var(--color-text-inverted);
+  }
+
+  /* Firefox specific styles */
+  @-moz-document url-prefix() {
+    select {
+      color: var(--color-text);
+      background-color: var(--color-primary);
+    }
+    
+    select option {
+      background-color: var(--color-background);
+      color: var(--color-text);
+    }
+
+    select option:checked,
+    select option:hover {
+      background-color: var(--color-accent-muted);
+      color: var(--color-text-inverted);
+      box-shadow: 0 0 0 1px var(--color-accent-muted);
+    }
+  }
+
+  /* Webkit specific styles */
+  select::-ms-expand {
+    display: none;
+  }
+
+  /* Dark mode specific styles */
+  :global(.dark) select {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+  }
+
+  :global(.dark) select option {
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+
+  :global(.dark) select option:checked,
+  :global(.dark) select option:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-inverted);
+  }
+
+  /* Ensure text remains visible during selection */
+  select option:active,
+  select option:focus {
+    background-color: var(--color-accent);
+    color: var(--color-text-inverted);
+  }
+
+  :global(.dark) select option:active,
+  :global(.dark) select option:focus {
+    background-color: var(--color-accent);
+    color: var(--color-text-inverted);
+  }
+</style>
+
+<script>
+  const select = document.getElementById('language-select') as HTMLSelectElement;
+  const currentLang = select.dataset.currentLang;
+
+  select.addEventListener('change', (e) => {
+    const target = e.target as HTMLSelectElement;
+    const newLang = target.value;
+    const currentPath = window.location.pathname;
+    const newPath = currentPath.replace(/^\/[^/]+/, `/${newLang}`);
+    window.location.href = newPath || `/${newLang}`;
+  });
+</script>

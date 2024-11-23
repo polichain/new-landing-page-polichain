@@ -1,0 +1,75 @@
+/* Base theme variables */
+:root {
+  /* Light theme */
+  --color-primary: #FAFAFA;
+  --color-primary-dark: #E5E5E5;
+  
+  --color-accent: #171717;
+  --color-accent-muted: #404040;
+  --color-accent-hover: #262626;
+  
+  --color-text: #171717;
+  --color-text-muted: #525252;
+  --color-text-inverted: #FFFFFF;
+  
+  --color-border: #D4D4D4;
+  --color-border-hover: #A3A3A3;
+  
+  --color-background: #FFFFFF;
+  --color-background-muted: #FAFAFA;
+  --color-background-elevated: #E5E5E5;
+  
+  --gradient-radial: radial-gradient(circle at center, rgba(64, 64, 64, 0.1) 0%, transparent 70%);
+  --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-muted) 100%);
+}
+
+/* Dark theme */
+.dark {
+  --color-primary: #171717;
+  --color-primary-dark: #262626;
+  
+  --color-accent: #FFFFFF;
+  --color-accent-muted: #D4D4D4;
+  --color-accent-hover: #E5E5E5;
+  
+  --color-text: #FFFFFF;
+  --color-text-muted: #A3A3A3;
+  --color-text-inverted: #171717;
+  
+  --color-border: #404040;
+  --color-border-hover: #525252;
+  
+  --color-background: #0A0A0A;
+  --color-background-muted: #171717;
+  --color-background-elevated: #262626;
+  
+  --gradient-radial: radial-gradient(circle at center, rgba(212, 212, 212, 0.1) 0%, transparent 70%);
+  --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-muted) 100%);
+}
+
+/* Global transition settings */
+:root {
+  --transition-duration: 100ms;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base transitions */
+* {
+  transition: 
+    background-color var(--transition-duration) var(--transition-timing),
+    border-color var(--transition-duration) var(--transition-timing),
+    color var(--transition-duration) var(--transition-timing),
+    fill var(--transition-duration) var(--transition-timing),
+    stroke var(--transition-duration) var(--transition-timing);
+}
+
+/* Remove transitions from specific elements */
+.no-transition {
+  transition: none !important;
+}
+
+/* Optimize backdrop blur */
+.backdrop-blur-lg {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}

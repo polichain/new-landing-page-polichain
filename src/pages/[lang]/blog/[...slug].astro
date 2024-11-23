@@ -1,0 +1,156 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+import { languages } from '../../../i18n/ui';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return Object.keys(languages).flatMap(lang => 
+    posts.map(post => ({
+      params: { lang, slug: post.slug },
+      props: { post },
+    }))
+  );
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={post.data.title}>
+  <main class="min-h-screen bg-background">
+    <div class="container mx-auto px-4 py-16">
+      <article class="max-w-3xl mx-auto">
+        {post.data.image && (
+          <img 
+            src={post.data.image}
+            alt={post.data.title}
+            class="w-full h-64 object-cover rounded-lg mb-8"
+          />
+        )}
+        
+        <header class="mb-8">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4 text-text">
+            {post.data.title}
+          </h1>
+          
+          <div class="flex items-center justify-between text-text-muted">
+            <div class="flex items-center space-x-4">
+              <time datetime={post.data.publishDate.toISOString()}>
+                {new Date(post.data.publishDate).toLocaleDateString(lang, {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </time>
+              <span>•</span>
+              <span>{post.data.author}</span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              {post.data.tags.map(tag => (
+                <span class="text-sm px-3 py-1 bg-accent/10 text-accent rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </header>
+        
+        <div class="prose prose-lg dark:prose-invert max-w-none">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  .prose {
+    color: var(--color-text);
+  }
+  
+  .prose a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  
+  .prose a:hover {
+    text-decoration: underline;
+  }
+  
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    color: var(--color-text);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .prose code {
+    background-color: var(--color-accent-muted);
+    color: var(--color-text-inverted);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
+  }
+  
+  .prose pre {
+    background-color: var(--color-background-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5em;
+  }
+  
+  .prose pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+  }
+  
+  .prose blockquote {
+    border-left-color: var(--color-accent);
+    background-color: var(--color-accent-muted/0.1);
+    border-radius: 0.25em;
+  }
+  
+  .prose ul,
+  .prose ol {
+    padding-left: 1.5em;
+  }
+  
+  .prose li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  
+  .prose img {
+    border-radius: 0.5em;
+  }
+  
+  .prose hr {
+    border-color: var(--color-border);
+  }
+  
+  .prose table {
+    border-collapse: collapse;
+  }
+  
+  .prose th,
+  .prose td {
+    border: 1px solid var(--color-border);
+    padding: 0.5em 1em;
+  }
+  
+  .prose thead th {
+    background-color: var(--color-background-elevated);
+  }
+
+  /* Remove top margin from first heading to avoid duplicate titles */
+  .prose > h1:first-child {
+    display: none;
+  }
+</style></content>

@@ -1,0 +1,94 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { languages } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title={t('about.title')}>
+  <main class="min-h-screen bg-background transition-colors duration-300">
+    <div class="container mx-auto px-4 py-16">
+      <h1 class="text-4xl md:text-6xl font-bold text-center mb-8 text-text">
+        {t('about.title')}
+      </h1>
+      <p class="text-xl text-center max-w-2xl mx-auto mb-16 text-text-muted">
+        {t('about.subtitle')}
+      </p>
+      
+      <div class="max-w-4xl mx-auto space-y-12">
+        <!-- History Section -->
+        <section class="bg-primary/50 rounded-lg p-8 backdrop-blur-sm border border-accent/10">
+          <h2 class="text-3xl font-bold mb-6 text-accent">
+            {t('about.history.title')}
+          </h2>
+          <div class="space-y-4">
+            <p class="text-lg leading-relaxed text-text">
+              {t('about.history.content')}
+            </p>
+            <p class="text-lg leading-relaxed text-text">
+              {t('about.history.motivation')}
+            </p>
+          </div>
+        </section>
+
+        <!-- Support Section -->
+        <section class="bg-primary/50 rounded-lg p-8 backdrop-blur-sm border border-accent/10">
+          <h2 class="text-3xl font-bold mb-6 text-accent">
+            {t('about.support.title')}
+          </h2>
+          <div class="space-y-6">
+            <p class="text-lg leading-relaxed text-text">
+              {t('about.support.content')}
+            </p>
+            <ul class="list-none pl-6 space-y-2">
+              {t('about.support.professors').map((professor) => (
+                <li class="text-lg font-medium text-accent">• {professor}</li>
+              ))}
+            </ul>
+            <p class="text-lg leading-relaxed mt-4 text-text">
+              {t('about.support.ubri')}
+            </p>
+          </div>
+        </section>
+
+        <!-- Activities Section -->
+        <section class="bg-primary/50 rounded-lg p-8 backdrop-blur-sm border border-accent/10">
+          <h2 class="text-3xl font-bold mb-8 text-accent">
+            {t('about.activities.title')}
+          </h2>
+          
+          <!-- Hackathons -->
+          <div class="mb-8">
+            <h3 class="text-2xl font-semibold mb-4 text-text">
+              {t('about.activities.hackathons.title')}
+            </h3>
+            <p class="text-lg leading-relaxed text-text">
+              {t('about.activities.hackathons.content')}
+            </p>
+          </div>
+
+          <!-- Events -->
+          <div>
+            <h3 class="text-2xl font-semibold mb-4 text-text">
+              {t('about.activities.events.title')}
+            </h3>
+            <ul class="list-none space-y-3">
+              {t('about.activities.events.list').map((event) => (
+                <li class="text-lg leading-relaxed flex items-start text-text">
+                  <span class="text-accent mr-2">•</span>
+                  {event}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</Layout>

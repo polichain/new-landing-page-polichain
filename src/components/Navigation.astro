@@ -1,0 +1,32 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import LanguageSelector from './LanguageSelector.astro';
+import Logo from './Logo.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-primary/50 backdrop-blur-lg border-b border-accent/10">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-6">
+      <a href={`/${lang}`} class="flex items-center space-x-3 text-text hover:text-accent">
+        <div class="w-14 h-14">
+          <Logo />
+        </div>
+        <span class="text-2xl font-bold monospace">
+          polichain<span class="text-accent">.xyz</span>
+        </span>
+      </a>
+      <div class="flex items-center space-x-8">
+        <div class="hidden md:flex space-x-6">
+          <a href={`/${lang}`} class="text-text hover:text-accent monospace">{t('nav.home')}</a>
+          <a href={`/${lang}/members`} class="text-text hover:text-accent monospace">{t('nav.members')}</a>
+          <a href={`/${lang}/blog`} class="text-text hover:text-accent monospace">{t('nav.blog')}</a>
+          <a href={`/${lang}/about`} class="text-text hover:text-accent monospace">{t('nav.about')}</a>
+        </div>
+        <LanguageSelector currentLang={lang} />
+      </div>
+    </div>
+  </div>
+</nav>
