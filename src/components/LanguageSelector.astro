@@ -35,26 +35,22 @@ const { pathname } = Astro.url;
     appearance: none;
   }
 
-  /* Base styles for options */
   select option {
     background-color: var(--color-background);
     color: var(--color-text);
     padding: 0.5rem 1rem;
   }
 
-  /* Selected option styles */
   select option:checked {
     background-color: var(--color-accent-muted);
     color: var(--color-text-inverted);
   }
 
-  /* Hover styles for options */
   select option:hover {
     background-color: var(--color-accent-muted);
     color: var(--color-text-inverted);
   }
 
-  /* Firefox specific styles */
   @-moz-document url-prefix() {
     select {
       color: var(--color-text);
@@ -74,12 +70,10 @@ const { pathname } = Astro.url;
     }
   }
 
-  /* Webkit specific styles */
   select::-ms-expand {
     display: none;
   }
 
-  /* Dark mode specific styles */
   :global(.dark) select {
     background-color: var(--color-primary);
     color: var(--color-text);
@@ -96,7 +90,6 @@ const { pathname } = Astro.url;
     color: var(--color-text-inverted);
   }
 
-  /* Ensure text remains visible during selection */
   select option:active,
   select option:focus {
     background-color: var(--color-accent);
@@ -111,14 +104,23 @@ const { pathname } = Astro.url;
 </style>
 
 <script>
-  const select = document.getElementById('language-select') as HTMLSelectElement;
-  const currentLang = select.dataset.currentLang;
+  function initializeLanguageSelector() {
+    const selects = document.querySelectorAll('#language-select') as NodeListOf<HTMLSelectElement>;
+    
+    selects.forEach(select => {
+      select.addEventListener('change', (e) => {
+        const target = e.target as HTMLSelectElement;
+        const newLang = target.value;
+        const currentPath = window.location.pathname;
+        const newPath = currentPath.replace(/^\/[^/]+/, `/${newLang}`);
+        window.location.href = newPath || `/${newLang}`;
+      });
+    });
+  }
 
-  select.addEventListener('change', (e) => {
-    const target = e.target as HTMLSelectElement;
-    const newLang = target.value;
-    const currentPath = window.location.pathname;
-    const newPath = currentPath.replace(/^\/[^/]+/, `/${newLang}`);
-    window.location.href = newPath || `/${newLang}`;
-  });
+  // Initialize on page load
+  initializeLanguageSelector();
+
+  // Re-initialize when content updates (for client-side navigation)
+  document.addEventListener('astro:after-swap', initializeLanguageSelector);
 </script>
