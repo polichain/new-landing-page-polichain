@@ -12,20 +12,60 @@ const t = useTranslations(lang);
 
 const members = [
   {
-    name: 'John Doe',
+    name: 'Otávio',
     role: 'President',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=john',
+    image: 'https://utfs.io/f/c6DyH2jvBDjOWhLUeQp3ItKsfGm42SEi8CYwDTlca9JPeONB',
   },
   {
-    name: 'Jane Smith',
-    role: 'Vice President',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=jane',
+    name: 'Gustavo',
+    role: 'Vice-president',
+    image: 'https://utfs.io/f/c6DyH2jvBDjOMK8M7kwBAzaYeUBLETpHuSr7oW4F6jwdQhIs',
   },
   {
-    name: 'Mike Johnson',
-    role: 'Technical Lead',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=mike',
-  }
+    name: 'Tiago',
+    role: 'Manager',
+    image: 'https://utfs.io/f/c6DyH2jvBDjOOPoi0IW8amfV9sorMRPdQgpeKXzLiIjS3U2k',
+  },
+  {
+    name: 'Paolla',
+    role: 'Manager',
+    image: 'https://utfs.io/f/c6DyH2jvBDjO4QzxVKlxUXg2meZniJrV8QLH1hjbTptlFMas',
+  },
+  {
+    name: 'Dan',
+    role: 'Member',
+    image: 'https://utfs.io/f/c6DyH2jvBDjOJRDr0batkAQWh24S9ImJpfseqDiuaFjPMyEO',
+  },
+  {
+    name: 'Lorenzo',
+    role: 'Member',
+    image: 'https://utfs.io/f/c6DyH2jvBDjOAtds9ziMo4ZRYNEimSW9lt2jOpB6xfXTd7zu',
+  },
+  {
+    name: 'Abner',
+    role: 'Member',
+    image: 'https://utfs.io/f/c6DyH2jvBDjOn2x4JfHu8Q0fImlPxY3vqC1ByAEKaze4d5Ti',
+  },
+  {
+    name: 'Vinicio',
+    role: 'Member',
+    image: 'https://utfs.io/f/c6DyH2jvBDjOQDVSUkTYfAyh6SDmKFGOW058oneHzIjs3vL2',
+  },
+  {
+    name: 'Henrique',
+    role: 'Member',
+    image: 'https://utfs.io/f/c6DyH2jvBDjOjKyFuvqFbJf0S8dMXYQy2CH3kBsDwhR64t7x',
+  },
+  {
+    name: 'Claudio',
+    role: 'Member',
+    image: 'https://utfs.io/f/c6DyH2jvBDjOxHyIH5jh6iSNXdYwP73qDrjEFbvJu8zhABfG',
+  },
+  {
+    name: 'Turina',
+    role: 'Member',
+    image: 'https://utfs.io/f/c6DyH2jvBDjOA5MfpciMo4ZRYNEimSW9lt2jOpB6xfXTd7zu',
+  },
 ];
 ---
 
@@ -42,11 +82,14 @@ const members = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {members.map((member) => (
           <div class="bg-primary/50 rounded-lg p-6 text-center backdrop-blur-sm border border-accent/10 hover:border-accent/30 transition-all duration-300">
-            <img
-              src={member.image}
-              alt={member.name}
-              class="w-32 h-32 mx-auto mb-4 rounded-full bg-accent/5 p-1"
-            />
+            <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-accent/5 p-1 overflow-hidden relative">
+              <img
+                src={member.image}
+                alt={member.name}
+                class="absolute inset-0 w-full h-full object-cover rounded-full"
+                loading="lazy"
+              />
+            </div>
             <h3 class="text-xl font-bold mb-2 text-text">{member.name}</h3>
             <p class="text-text-muted">{member.role}</p>
           </div>
