@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 import { languages } from '../../i18n/ui';
 
@@ -74,6 +75,7 @@ const members = [
 ];
 ---
 
+
 <Layout title={t('members.title')}>
   <main class="min-h-screen bg-background transition-colors duration-300">
     <div class="container mx-auto px-4 py-16">
@@ -88,11 +90,12 @@ const members = [
         {members.map((member) => (
           <div class="bg-primary/50 rounded-lg p-6 text-center backdrop-blur-sm border border-accent/10 hover:border-accent/30 transition-all duration-300">
             <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-accent/5 p-1 overflow-hidden relative">
-              <img
+              <Image
                 src={member.image}
-                alt={member.name}
+                alt={`${member.name} - ${member.role}`}
+                width={128}
+                height={128}
                 class="absolute inset-0 w-full h-full object-cover rounded-full"
-                loading="lazy"
               />
             </div>
             <h3 class="text-xl font-bold mb-2 text-text">{member.name}</h3>

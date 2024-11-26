@@ -10,6 +10,9 @@ export default defineConfig({
     mdx(),
     sitemap()
   ],
+  image: {
+    domains: ["utfs.io"]
+  },
   markdown: {
     shikiConfig: {
       theme: 'dracula',
