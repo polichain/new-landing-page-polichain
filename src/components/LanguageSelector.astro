@@ -112,8 +112,26 @@ const { pathname } = Astro.url;
         const target = e.target as HTMLSelectElement;
         const newLang = target.value;
         const currentPath = window.location.pathname;
-        const newPath = currentPath.replace(/^\/[^/]+/, `/${newLang}`);
-        window.location.href = newPath || `/${newLang}`;
+        
+        // Get the path segments
+        const segments = currentPath.split('/').filter(Boolean);
+        
+        // If we're on a non-default language page, remove the language segment
+        let pathWithoutLang = segments.length > 0 && segments[0] in {'en': true, 'pt': true} 
+          ? '/' + segments.slice(1).join('/')
+          : currentPath;
+        
+        // If path is empty or just '/', set it to root
+        if (!pathWithoutLang || pathWithoutLang === '/') {
+          pathWithoutLang = '/';
+        }
+        
+        // Construct the new path based on language
+        const newPath = newLang === 'en' 
+          ? pathWithoutLang 
+          : `/${newLang}${pathWithoutLang === '/' ? '' : pathWithoutLang}`;
+        
+        window.location.href = newPath;
       });
     });
   }

@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 import LanguageSelector from './LanguageSelector.astro';
 
 interface Props {
@@ -8,14 +8,15 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 ---
 
 <div id="mobile-menu" class="md:hidden hidden pb-6">
   <div class="flex flex-col space-y-4">
-    <a href={`/${lang}`} class="text-text hover:text-accent monospace px-2 py-1 rounded-lg hover:bg-accent/5">{t('nav.home')}</a>
-    <a href={`/${lang}/members`} class="text-text hover:text-accent monospace px-2 py-1 rounded-lg hover:bg-accent/5">{t('nav.members')}</a>
-    <a href={`/${lang}/blog`} class="text-text hover:text-accent monospace px-2 py-1 rounded-lg hover:bg-accent/5">{t('nav.blog')}</a>
-    <a href={`/${lang}/about`} class="text-text hover:text-accent monospace px-2 py-1 rounded-lg hover:bg-accent/5">{t('nav.about')}</a>
+    <a href={translatePath('/')} class="text-text hover:text-accent monospace px-2 py-1 rounded-lg hover:bg-accent/5">{t('nav.home')}</a>
+    <a href={translatePath('/members')} class="text-text hover:text-accent monospace px-2 py-1 rounded-lg hover:bg-accent/5">{t('nav.members')}</a>
+    <a href={translatePath('/blog')} class="text-text hover:text-accent monospace px-2 py-1 rounded-lg hover:bg-accent/5">{t('nav.blog')}</a>
+    <a href={translatePath('/about')} class="text-text hover:text-accent monospace px-2 py-1 rounded-lg hover:bg-accent/5">{t('nav.about')}</a>
     <div class="pt-2">
       <LanguageSelector currentLang={lang} />
     </div>

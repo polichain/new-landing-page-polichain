@@ -1,17 +1,19 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 import LanguageSelector from './LanguageSelector.astro';
 import MobileMenu from './MobileMenu.astro';
 import Logo from './Logo.astro';
+import { defaultLang } from '../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 ---
 
 <nav class="fixed top-0 left-0 right-0 z-50 bg-primary/50 backdrop-blur-lg border-b border-accent/10">
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center py-6">
-      <a href={`/${lang}`} class="flex items-center space-x-3 text-text hover:text-accent">
+      <a href={lang === defaultLang ? '/' : `/${lang}`} class="flex items-center space-x-3 text-text hover:text-accent">
         <div class="w-14 h-14">
           <Logo />
         </div>
@@ -59,10 +61,10 @@ const t = useTranslations(lang);
       <!-- Desktop navigation -->
       <div class="hidden md:flex items-center space-x-8">
         <div class="flex space-x-6">
-          <a href={`/${lang}`} class="text-text hover:text-accent monospace">{t('nav.home')}</a>
-          <a href={`/${lang}/members`} class="text-text hover:text-accent monospace">{t('nav.members')}</a>
-          <a href={`/${lang}/blog`} class="text-text hover:text-accent monospace">{t('nav.blog')}</a>
-          <a href={`/${lang}/about`} class="text-text hover:text-accent monospace">{t('nav.about')}</a>
+          <a href={translatePath('/')} class="text-text hover:text-accent monospace">{t('nav.home')}</a>
+          <a href={translatePath('/members')} class="text-text hover:text-accent monospace">{t('nav.members')}</a>
+          <a href={translatePath('/blog')} class="text-text hover:text-accent monospace">{t('nav.blog')}</a>
+          <a href={translatePath('/about')} class="text-text hover:text-accent monospace">{t('nav.about')}</a>
         </div>
         <LanguageSelector currentLang={lang} />
       </div>
