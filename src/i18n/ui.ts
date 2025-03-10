@@ -6,43 +6,6 @@ export const languages = {
 export const defaultLang = 'en';
 export const showDefaultLang = false;
 
-export type TranslationKey = 
-  | 'nav.home'
-  | 'nav.members'
-  | 'nav.about'
-  | 'nav.blog'
-  | 'home.title'
-  | 'home.subtitle'
-  | 'home.welcome'
-  | 'home.description'
-  | 'features.research.title'
-  | 'features.research.description'
-  | 'features.development.title'
-  | 'features.development.description'
-  | 'features.community.title'
-  | 'features.community.description'
-  | 'members.title'
-  | 'members.subtitle'
-  | 'members.roles.president'
-  | 'members.roles.vice_president'
-  | 'members.roles.manager'
-  | 'members.roles.treasurer'
-  | 'members.roles.member'
-  | 'about.title'
-  | 'about.subtitle'
-  | 'about.history.title'
-  | 'about.history.content'
-  | 'about.history.motivation'
-  | 'about.support.title'
-  | 'about.support.content'
-  | 'about.support.professors'
-  | 'about.support.ubri'
-  | 'about.activities.title'
-  | 'about.activities.hackathons.title'
-  | 'about.activities.hackathons.content'
-  | 'about.activities.events.title'
-  | 'about.activities.events.list';
-
 export const ui = {
   en: {
     'nav.home': 'Home',
@@ -61,11 +24,6 @@ export const ui = {
     'features.community.description': 'Growing a vibrant community of blockchain enthusiasts and developers.',
     'members.title': 'Our Members',
     'members.subtitle': 'Meet the team behind polichain.xyz',
-    'members.roles.president': 'President',
-    'members.roles.vice_president': 'Vice-president',
-    'members.roles.manager': 'Manager',
-    'members.roles.treasurer': 'Treasurer',
-    'members.roles.member': 'Member',
     'about.title': 'About Us',
     'about.subtitle': 'Learn about our history and mission',
     'about.history.title': 'Our History',
@@ -103,11 +61,6 @@ export const ui = {
     'features.community.description': 'Cultivando uma comunidade vibrante de entusiastas e desenvolvedores blockchain.',
     'members.title': 'Nossos Membros',
     'members.subtitle': 'Conheça a equipe da polichain.xyz',
-    'members.roles.president': 'Presidente',
-    'members.roles.vice_president': 'Vice-presidente',
-    'members.roles.manager': 'Gerente',
-    'members.roles.treasurer': 'Tesoureiro',
-    'members.roles.member': 'Membro',
     'about.title': 'Sobre Nós',
     'about.subtitle': 'Conheça nossa história e missão',
     'about.history.title': 'Nossa História',
