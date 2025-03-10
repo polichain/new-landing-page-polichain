@@ -126,10 +126,8 @@ const { pathname } = Astro.url;
           pathWithoutLang = '/';
         }
         
-        // Construct the new path based on language
-        const newPath = newLang === 'en' 
-          ? pathWithoutLang 
-          : `/${newLang}${pathWithoutLang === '/' ? '' : pathWithoutLang}`;
+        // Always include the language in the path
+        const newPath = `/${newLang}${pathWithoutLang}`;
         
         window.location.href = newPath;
       });
